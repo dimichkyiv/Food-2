@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 }); //Timer
 
-const deadLine = '2022-01-11';
+const deadLine = '2022-01-19';
 
 function getTimeReamining(endtime) {
   const time = Date.parse(endtime) - Date.parse(new Date());
