@@ -91,6 +91,8 @@ function setClock (selector, endtime){
 }
 setClock('.timer', deadLine);
 
+//Modal
+
 const modalTrigger = document.querySelectorAll('[data-modal]');
 const modal = document.querySelector('.modal');
 const modalCloseBtn = document.querySelector('[data-close]');
