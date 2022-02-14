@@ -303,9 +303,6 @@ function postData(form) {
     form.insertAdjacentElement('afterend', statusMessage);
 
 
-    const request = new XMLHttpRequest();
-    request.open('POST', 'server.php');
-
 
     request.setRequestHeader('Content-type', 'aplication/json');
     const formData = new FormData(form);
@@ -315,20 +312,34 @@ function postData(form) {
         object[key] = value;
       });
 
-    const json = JSON.stringify(object);
+    fetch('server.php', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'aplication/json',
+      },
+      body: JSON.stringify(object)
+    }).then(data => data.text())
+    .then(data =>{
+      console.log(data);
+      ShowThanksModal(message.success);
+      statusMessage.remove();
+    }).catch(()=>{
+      ShowThanksModal(message.failure);
+    }).finally(()=>{
+      form.reset();
+    })
 
-    request.send(json);
 
-    request.addEventListener('load', () => {
-      if(request.status === 200) {
-        console.log(request.response);
-        ShowThanksModal(message.success);
-        form.reset();
-        statusMessage.remove();
-      } else {
-        ShowThanksModal(message.failure);
-      }
-    });
+    // request.addEventListener('load', () => {
+    //   if(request.status === 200) {
+    //     console.log(request.response);
+    //     ShowThanksModal(message.success);
+    //     form.reset();
+    //     statusMessage.remove();
+    //   } else {
+    //     ShowThanksModal(message.failure);
+    //   }
+    // });
   });
 }
 function ShowThanksModal (message){
